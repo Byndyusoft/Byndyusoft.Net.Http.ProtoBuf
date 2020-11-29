@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{06026975-7A9F-4715-95E7-49D0DC9A0706}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byndyusoft.Net.Http.ProtoBuf", "src\Byndyusoft.Net.Http.ProtoBuf.csproj", "{EB316D1A-89BA-498B-A568-A028D981CBC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{0E2A372F-A0EF-46F7-BDE0-DEE8790E5BFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{DFA4F8E8-4B33-4FAC-9C9D-19C11BB4A508}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\pull-request.yml = .github\workflows\pull-request.yml
+		.github\workflows\push.yml = .github\workflows\push.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{42D286BD-BE88-4176-9C5D-13789F56921C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byndyusoft.Net.Http.ProtoBuf.Tests", "tests\Byndyusoft.Net.Http.ProtoBuf.Tests.csproj", "{F5E4A1C0-6F7E-4968-A449-922BA8820F8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7ED5485D-AD70-468E-958B-3ACC17B8FED1}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		CONTRIBUTING.md = CONTRIBUTING.md
+		icon.png = icon.png
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB316D1A-89BA-498B-A568-A028D981CBC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB316D1A-89BA-498B-A568-A028D981CBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB316D1A-89BA-498B-A568-A028D981CBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB316D1A-89BA-498B-A568-A028D981CBC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EB316D1A-89BA-498B-A568-A028D981CBC6} = {06026975-7A9F-4715-95E7-49D0DC9A0706}
+		{DFA4F8E8-4B33-4FAC-9C9D-19C11BB4A508} = {0E2A372F-A0EF-46F7-BDE0-DEE8790E5BFF}
+		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C} = {42D286BD-BE88-4176-9C5D-13789F56921C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10EEDF29-A030-4460-83A0-88AFC5CC6FC0}
+	EndGlobalSection
+EndGlobal
