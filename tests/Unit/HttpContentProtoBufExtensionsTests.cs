@@ -33,7 +33,8 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task ReadFromProtoBufAsync_Test()
         {
-            var content = ProtoBufContent.Create(SimpleType.Create(), _typeModel);
+            var content = new StreamProtoBufHttpContent();
+            content.WriteObject(SimpleType.Create(), _typeModel);
 
             var model = await content.ReadFromProtoBufAsync(typeof(SimpleType), _typeModel);
 
@@ -44,7 +45,8 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task ReadFromProtoBufAsync_NullObject_Test()
         {
-            var content = ProtoBufContent.Create<SimpleType>(null, _typeModel);
+            var content = new StreamProtoBufHttpContent();
+            content.WriteObject<ValueMember>(null, _typeModel);
 
             var model = await content.ReadFromProtoBufAsync(typeof(SimpleType), _typeModel);
 
@@ -54,7 +56,8 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task ReadFromProtoBufAsync_Generic_Test()
         {
-            var content = ProtoBufContent.Create(SimpleType.Create(), _typeModel);
+            var content = new StreamProtoBufHttpContent();
+            content.WriteObject(SimpleType.Create(), _typeModel);
 
             var model = await content.ReadFromProtoBufAsync<SimpleType>(_typeModel);
 
@@ -64,7 +67,8 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task ReadFromProtoBufAsync_Generic_NullObject_Test()
         {
-            var content = ProtoBufContent.Create<SimpleType>(null, _typeModel);
+            var content = new StreamProtoBufHttpContent();
+            content.WriteObject<ValueMember>(null, _typeModel);
 
             var model = await content.ReadFromProtoBufAsync<SimpleType>(_typeModel);
 

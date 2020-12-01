@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Net.Http.ProtoBuf.Internal;
+using System.Threading;
 using System.Threading.Tasks;
 using ProtoBuf.Meta;
 
@@ -21,12 +22,16 @@ namespace System.Net.Http.ProtoBuf
         ///     cancellation.
         /// </param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public static Task<object> ReadFromProtoBufAsync(this HttpContent content, Type type,
+        public static async Task<object> ReadFromProtoBufAsync(this HttpContent content, Type type,
             TypeModel typeModel = null, CancellationToken cancellationToken = default)
         {
             if (content == null) throw new ArgumentNullException(nameof(content));
+            if (type == null) throw new ArgumentNullException(nameof(type));
 
-            return ReadFromProtoBufAsyncCore(content, type, typeModel, cancellationToken);
+            if (content is ProtoBufContent protoBufContent) return protoBufContent.Value;
+
+            return await ProtoBufHelper.ReadFromStreamAsync(content, type, typeModel, cancellationToken)
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -41,36 +46,13 @@ namespace System.Net.Http.ProtoBuf
         ///     cancellation.
         /// </param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public static Task<T> ReadFromProtoBufAsync<T>(this HttpContent content,
+        public static async Task<T> ReadFromProtoBufAsync<T>(this HttpContent content,
             TypeModel typeModel = null, CancellationToken cancellationToken = default)
         {
             if (content == null) throw new ArgumentNullException(nameof(content));
 
-            return ReadFromProtoBufAsyncCore<T>(content, typeModel, cancellationToken);
-        }
-
-        private static async Task<object> ReadFromProtoBufAsyncCore(HttpContent content, Type type,
-            TypeModel typeModel, CancellationToken cancellationToken)
-        {
-            if (typeModel == null) typeModel = RuntimeTypeModel.Default;
-
-            using (var stream = await content.ReadAsStreamAsync().ConfigureAwait(false))
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                return stream.Length != 0 ? typeModel.Deserialize(stream, null, type) : default;
-            }
-        }
-
-        private static async Task<T> ReadFromProtoBufAsyncCore<T>(HttpContent content,
-            TypeModel typeModel, CancellationToken cancellationToken)
-        {
-            if (typeModel == null) typeModel = RuntimeTypeModel.Default;
-
-            using (var stream = await content.ReadAsStreamAsync().ConfigureAwait(false))
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                return stream.Length != 0 ? typeModel.Deserialize<T>(stream) : default;
-            }
+            return (T) await ReadFromProtoBufAsync(content, typeof(T), typeModel, cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 }

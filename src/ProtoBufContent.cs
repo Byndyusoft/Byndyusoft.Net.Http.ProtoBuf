@@ -102,8 +102,7 @@ namespace System.Net.Http.ProtoBuf
 
         private MeasureState<object> Measure()
         {
-            if (_measureState == null) _measureState = TypeModel.Measure(Value);
-
+            _measureState ??= TypeModel.Measure(Value);
             return _measureState.Value;
         }
     }
