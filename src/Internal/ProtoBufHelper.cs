@@ -19,7 +19,7 @@ namespace System.Net.Http.ProtoBuf.Internal
             if (content == null) throw new ArgumentNullException(nameof(content));
 
             typeModel ??= ProtoBufDefaults.TypeModel;
-            var readStream = await content.ReadAsStreamAsync().ConfigureAwait(false);
+            using var readStream = await content.ReadAsStreamAsync().ConfigureAwait(false);
 
             var length = content.Headers.ContentLength ?? -1;
             if (length == 0)
