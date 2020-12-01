@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Unit
 {
-    public class HttpContentProtoBufExtensionsTests
+    public class HttpContentExtensionsTests
     {
         private readonly TypeModel _typeModel = RuntimeTypeModel.Default;
 
