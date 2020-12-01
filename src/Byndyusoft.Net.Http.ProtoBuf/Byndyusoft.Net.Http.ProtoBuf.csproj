@@ -9,13 +9,11 @@
       Provides extension methods for System.Net.Http.HttpClient and System.Net.Http.HttpContent that perform automatic serialization and deserialization using ProtoBuf.
 
       Commonly Used Types:
-        System.Net.Http.ProtoBuf.HttpClientProtoBufExtensions
-        System.Net.Http.ProtoBuf.HttpContentProtoBufExtensions
-        System.Net.Http.ProtoBuf.ProtoBufContent
+      System.Net.Http.ProtoBuf.HttpClientProtoBufExtensions
+      System.Net.Http.ProtoBuf.HttpContentProtoBufExtensions
+      System.Net.Http.ProtoBuf.ProtoBufContent
     </Description>
     <PackageTags>Byndyusoft;ProtoBuf;HttpClient;WebApi;AspNet</PackageTags>
-  
-
   </PropertyGroup>
 
   <ItemGroup>

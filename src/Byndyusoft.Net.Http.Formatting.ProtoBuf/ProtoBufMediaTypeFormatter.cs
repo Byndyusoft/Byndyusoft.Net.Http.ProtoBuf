@@ -23,16 +23,6 @@ namespace System.Net.Http.Formatting
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProtoBufMediaTypeFormatter" /> class.
         /// </summary>
-        /// <param name="formatter">The <see cref="ProtoBufMediaTypeFormatter" /> instance to copy settings from.</param>
-        protected internal ProtoBufMediaTypeFormatter(ProtoBufMediaTypeFormatter formatter)
-            : base(formatter)
-        {
-            Model = formatter.Model;
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ProtoBufMediaTypeFormatter" /> class.
-        /// </summary>
         /// <param name="model">Options for running serialization.</param>
         public ProtoBufMediaTypeFormatter(TypeModel model)
         {
@@ -55,8 +45,7 @@ namespace System.Net.Http.Formatting
 
         /// <inheritdoc />
         public override async Task<object> ReadFromStreamAsync(Type type, Stream readStream, HttpContent content,
-            IFormatterLogger formatterLogger,
-            CancellationToken cancellationToken)
+            IFormatterLogger formatterLogger, CancellationToken cancellationToken)
         {
             if (type is null) throw new ArgumentNullException(nameof(type));
             if (readStream is null) throw new ArgumentNullException(nameof(readStream));

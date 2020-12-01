@@ -116,6 +116,18 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         }
 
         [Fact]
+        public async Task ReadFromStreamAsync_WhenContentIsNull_ThrowsException()
+        {
+            // Act
+            var exception =
+                await Assert.ThrowsAsync<ArgumentNullException>(
+                    () => _formatter.ReadFromStreamAsync(typeof(object), _content.Stream, null, _logger));
+
+            // Assert
+            Assert.Equal("content", exception.ParamName);
+        }
+
+        [Fact]
         public async Task ReadFromStreamAsync_ReadsNullObject()
         {
             // Assert
@@ -198,6 +210,18 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
 
             // Assert
             Assert.Equal("writeStream", exception.ParamName);
+        }
+
+        [Fact]
+        public async Task WriteToStreamAsync_WhenContentIsNull_ThrowsException()
+        {
+            // Act
+            var exception =
+                await Assert.ThrowsAsync<ArgumentNullException>(
+                    () => _formatter.WriteToStreamAsync(typeof(object), new object(), _content.Stream, null, _context));
+
+            // Assert
+            Assert.Equal("content", exception.ParamName);
         }
 
         [Fact]

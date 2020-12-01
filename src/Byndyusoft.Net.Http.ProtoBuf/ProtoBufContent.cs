@@ -15,12 +15,6 @@ namespace System.Net.Http.ProtoBuf
 
         private ProtoBufContent(object inputValue, Type inputType, MediaTypeHeaderValue mediaType, TypeModel model)
         {
-            if (inputType == null) throw new ArgumentNullException(nameof(inputType));
-
-            if (inputValue != null && !inputType.IsInstanceOfType(inputValue))
-                throw new ArgumentException(
-                    $"The specified type {inputType} must derive from the specific value's type {inputValue.GetType()}.");
-
             Value = inputValue;
             ObjectType = inputType;
             Headers.ContentType = mediaType ?? ProtoBufDefaults.MediaTypeHeader;
@@ -67,9 +61,14 @@ namespace System.Net.Http.ProtoBuf
         /// <param name="mediaType">The media type to use for the content.</param>
         /// <returns>A <see cref="ProtoBufContent" /> instance.</returns>
         public static ProtoBufContent Create(object inputValue, Type inputType,
-            TypeModel typeModel = null,
-            MediaTypeHeaderValue mediaType = null)
+            TypeModel typeModel = null, MediaTypeHeaderValue mediaType = null)
         {
+            if (inputType == null) throw new ArgumentNullException(nameof(inputType));
+
+            if (inputValue != null && !inputType.IsInstanceOfType(inputValue))
+                throw new ArgumentException(
+                    $"The specified type {inputType} must derive from the specific value's type {inputValue.GetType()}.");
+
             return new ProtoBufContent(inputValue, inputType, mediaType, typeModel);
         }
 
