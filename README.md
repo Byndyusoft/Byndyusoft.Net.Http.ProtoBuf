@@ -1,26 +1,25 @@
-# Byndyusoft.Net.Http.ProtoBuf
- Provides extension methods for System.Net.Http.HttpClient and System.Net.Http.HttpContent that perform automatic serialization and deserialization using ProtoBuf.
+[Protocol Buffers](https://developers.google.com/protocol-buffers) are Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data – think XML, but smaller, faster, and simpler. 
 
+## Byndyusoft.Net.Http.ProtoBuf
 [![(License)](https://img.shields.io/github/license/Byndyusoft/Byndyusoft.Net.Http.ProtoBuf.svg)](LICENSE.txt)
 [![Nuget](http://img.shields.io/nuget/v/Byndyusoft.Net.Http.ProtoBuf.svg?maxAge=10800)](https://www.nuget.org/packages/Byndyusoft.Net.Http.ProtoBuf/) [![NuGet downloads](https://img.shields.io/nuget/dt/Byndyusoft.Net.Http.ProtoBuf.svg)](https://www.nuget.org/packages/Byndyusoft.Net.Http.ProtoBuf/) 
 
-[Protocol Buffers](https://developers.google.com/protocol-buffers) are Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data – think XML, but smaller, faster, and simpler. 
+Provides extension methods for System.Net.Http.HttpClient and System.Net.Http.HttpContent that perform automatic serialization and deserialization using ProtoBuf.
 
-```Byndyusoft.Net.Http.ProtoBuf``` actually depends on ```Microsoft.Net.Http```, and extends the ```HttpClient``` with ```ProtoBuf```
+This package actually depends on ```Microsoft.Net.Http```, and extends the ```HttpClient``` with ```ProtoBuf```
 features that you would likely need to talk to a RESTful service such as ASP.NET Web API.
-
 Package operates in the ```System.Net.Http``` namespace and adds some handy extension methods to ```HttpClient``` and ```HttpContent```.
 
 So for example:
 
-```
+```csharp
 using (var client = new HttpClient())
 {
     var product = await client.GetFromProtoBufAsync<Product>("http://localhost/api/products/1");
 }
 ```
 or
-```
+```csharp
 using (var client = new HttpClient())
 {
     var response = await _client.GetAsync("http://localhost/api/products/1");
@@ -29,7 +28,7 @@ using (var client = new HttpClient())
 }
 ```
 or
-```
+```csharp
 using (var client = new HttpClient())
 {
     var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/products/1");
@@ -44,17 +43,47 @@ as raw data such as bytes or string, and have to do the serializing / de-seriali
 
 You also get extension methods to PUT / POST back to the service in ```ProtoBuf``` format without having to do that yourself:
 
-```
-// Save the ProductInfo model back to the API service
+```csharp
 await client.PutAsProtoBufAsync("http://localhost/api/products/1", product);
 await client.PostAsProtoBufAsync("http://localhost/api/products/1", product);
 ```
 
-## Installing
+### Installing
 
 ```shell
 dotnet add package Byndyusoft.Net.Http.ProtoBuf
 ```
+
+***
+
+## Byndyusoft.Net.Http.Formatting.ProtoBuf
+
+[![(License)](https://img.shields.io/github/license/Byndyusoft/Byndyusoft.Net.Http.Formatting.ProtoBuf.svg)](LICENSE.txt)
+[![Nuget](http://img.shields.io/nuget/v/Byndyusoft.Net.Http.Formatting.ProtoBuf.svg?maxAge=10800)](https://www.nuget.org/packages/Byndyusoft.Net.Http.Formatting.ProtoBuf/) [![NuGet downloads](https://img.shields.io/nuget/dt/Byndyusoft.Net.Http.Formatting.ProtoBuf.svg)](https://www.nuget.org/packages/Byndyusoft.Net.Http.Formatting.ProtoBuf/) 
+
+
+This package adds `ProtoBufMediaTypeFormatter` class for formatting `HttpClient` requests and responses.
+
+So for example:
+
+```csharp
+using (var client = new HttpClient())
+{
+	var formatter = new ProtoBufMediaTypeFormatter();
+	var request = new SearchProductRequest { Name = 'iphone', OrderBy = 'id' };
+	var content = new ObjectContent<SearchProductRequest>(request, formatter);
+	var response = await client.PostAsync("http://localhost/api/products:search");
+	var products = await response.Content.ReadAsAsync<Product[]>(new[] {formatter});
+}
+```
+
+### Installing
+
+```shell
+dotnet add package Byndyusoft.Net.Http.Formatting.ProtoBuf
+```
+
+***
 
 # Contributing
 

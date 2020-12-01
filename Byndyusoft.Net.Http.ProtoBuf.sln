@@ -4,8 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{06026975-7A9F-4715-95E7-49D0DC9A0706}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byndyusoft.Net.Http.ProtoBuf", "src\Byndyusoft.Net.Http.ProtoBuf.csproj", "{EB316D1A-89BA-498B-A568-A028D981CBC6}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{0E2A372F-A0EF-46F7-BDE0-DEE8790E5BFF}"
 EndProject
@@ -24,10 +25,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		CONTRIBUTING.md = CONTRIBUTING.md
+		Directory.Build.props = Directory.Build.props
 		icon.png = icon.png
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byndyusoft.Net.Http.ProtoBuf", "src\Byndyusoft.Net.Http.ProtoBuf\Byndyusoft.Net.Http.ProtoBuf.csproj", "{034FC13D-765F-4388-A497-D25D221DD7D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byndyusoft.Net.Http.Formatting.ProtoBuf", "src\Byndyusoft.Net.Http.Formatting.ProtoBuf\Byndyusoft.Net.Http.Formatting.ProtoBuf.csproj", "{6B15B800-9075-44E4-8746-633DB8F132FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,22 +41,27 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EB316D1A-89BA-498B-A568-A028D981CBC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB316D1A-89BA-498B-A568-A028D981CBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB316D1A-89BA-498B-A568-A028D981CBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB316D1A-89BA-498B-A568-A028D981CBC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{034FC13D-765F-4388-A497-D25D221DD7D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{034FC13D-765F-4388-A497-D25D221DD7D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{034FC13D-765F-4388-A497-D25D221DD7D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{034FC13D-765F-4388-A497-D25D221DD7D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B15B800-9075-44E4-8746-633DB8F132FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B15B800-9075-44E4-8746-633DB8F132FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B15B800-9075-44E4-8746-633DB8F132FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B15B800-9075-44E4-8746-633DB8F132FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EB316D1A-89BA-498B-A568-A028D981CBC6} = {06026975-7A9F-4715-95E7-49D0DC9A0706}
 		{DFA4F8E8-4B33-4FAC-9C9D-19C11BB4A508} = {0E2A372F-A0EF-46F7-BDE0-DEE8790E5BFF}
 		{F5E4A1C0-6F7E-4968-A449-922BA8820F8C} = {42D286BD-BE88-4176-9C5D-13789F56921C}
+		{034FC13D-765F-4388-A497-D25D221DD7D4} = {06026975-7A9F-4715-95E7-49D0DC9A0706}
+		{6B15B800-9075-44E4-8746-633DB8F132FC} = {06026975-7A9F-4715-95E7-49D0DC9A0706}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10EEDF29-A030-4460-83A0-88AFC5CC6FC0}

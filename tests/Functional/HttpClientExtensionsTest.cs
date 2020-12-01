@@ -8,11 +8,11 @@ using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Functional
 {
-    public class FunctionalTests : MvcTestFixture
+    public class HttpClientExtensionsTest : MvcTestFixture
     {
         private readonly TypeModel _typeModel;
 
-        public FunctionalTests()
+        public HttpClientExtensionsTest()
         {
             _typeModel = RuntimeTypeModel.Default;
         }
@@ -35,7 +35,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Functional
             var input = SimpleType.Create();
 
             // Act
-            var response = await Client.PostAsProtoBufAsync("/msgpack-formatter", input, _typeModel);
+            var response = await Client.PostAsProtoBufAsync("/protobuf-formatter", input, _typeModel);
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromProtoBufAsync<SimpleType>();
 
@@ -52,7 +52,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Functional
             var input = SimpleType.Create();
 
             // Act
-            var response = await Client.PutAsProtoBufAsync("/msgpack-formatter", input, _typeModel);
+            var response = await Client.PutAsProtoBufAsync("/protobuf-formatter", input, _typeModel);
             response.EnsureSuccessStatusCode();
             var result = await response.Content.ReadFromProtoBufAsync<SimpleType>();
 
@@ -67,7 +67,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Functional
         public async Task GetFromProtoBufAsync()
         {
             // Act
-            var result = await Client.GetFromProtoBufAsync<SimpleType>("/msgpack-formatter", _typeModel);
+            var result = await Client.GetFromProtoBufAsync<SimpleType>("/protobuf-formatter", _typeModel);
 
             // Assert
             Assert.NotNull(result);

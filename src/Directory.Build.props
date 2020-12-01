@@ -1,0 +1,15 @@
+<Project>
+
+  <Import Project="..\Directory.Build.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <PackageIcon>icon.png</PackageIcon>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon.png" Pack="true" PackagePath="icon.png" />
+  </ItemGroup>
+
+</Project>

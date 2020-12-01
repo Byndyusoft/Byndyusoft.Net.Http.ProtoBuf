@@ -8,7 +8,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      DOTNET_NOLOGO: true
+      DOTNET_NOLOGO: false
     steps:
       - name: checkout
         uses: actions/checkout@master
@@ -24,10 +24,21 @@ jobs:
       - name: test
         run: dotnet test
         
-      - name: publish
+      - name: publish Byndyusoft.Net.Http.ProtoBuf
         uses: rohith/publish-nuget@v2
         with:
-          PROJECT_FILE_PATH: src/Byndyusoft.Net.Http.ProtoBuf.csproj
+          PROJECT_FILE_PATH: src/Byndyusoft.Net.Http.ProtoBuf/Byndyusoft.Net.Http.ProtoBuf.csproj
+          VERSION_FILE_PATH: Directory.Build.props
+          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+          TAG_COMMIT: false
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          INCLUDE_SYMBOLS: true
+
+      - name: publish Byndyusoft.Net.Http.Formatting.ProtoBuf
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/Byndyusoft.Net.Http.Formatting.ProtoBuf/Byndyusoft.Net.Http.Formatting.ProtoBuf.csproj
+          VERSION_FILE_PATH: Directory.Build.props
           VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
           TAG_COMMIT: false
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}

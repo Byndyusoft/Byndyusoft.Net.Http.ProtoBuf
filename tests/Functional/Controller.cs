@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Byndyusoft.Net.Http.ProtoBuf.Functional
 {
     [Controller]
-    [Route("msgpack-formatter")]
+    [Route("protobuf-formatter")]
     public class ProtoBufFormatterController : ControllerBase
     {
         [HttpPost]

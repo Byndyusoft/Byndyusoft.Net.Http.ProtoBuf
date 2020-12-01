@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Byndyusoft.Net.Http.ProtoBuf.csproj" />
+    <ProjectReference Include="..\src\Byndyusoft.Net.Http.Formatting.ProtoBuf\Byndyusoft.Net.Http.Formatting.ProtoBuf.csproj" />
   </ItemGroup>
 
 </Project>
