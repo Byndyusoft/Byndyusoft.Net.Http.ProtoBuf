@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>System.Net.Http.ProtoBuf</RootNamespace>
     <PackageId>Byndyusoft.Net.Http.ProtoBuf</PackageId>
     <Title>Byndyusoft.Net.Http.ProtoBuf</Title>
@@ -18,8 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-    <PackageReference Include="protobuf-net" Version="3.0.62" />
-    <PackageReference Include="System.IO.Pipelines" Version="5.0.0" />
+    <PackageReference Include="protobuf-net" Version="3.0.73" />
+    <PackageReference Include="System.IO.Pipelines" Version="5.0.1" />
   </ItemGroup>
 
 
