@@ -1,4 +1,4 @@
-[Protocol Buffers](https://developers.google.com/protocol-buffers) are Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data – think XML, but smaller, faster, and simpler. 
+[Protocol Buffers](https://developers.google.com/protocol-buffers) are Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data â€“ think XML, but smaller, faster, and simpler. 
 
 ## Byndyusoft.Net.Http.ProtoBuf
 [![(License)](https://img.shields.io/github/license/Byndyusoft/Byndyusoft.Net.Http.ProtoBuf.svg)](LICENSE.txt)
@@ -56,7 +56,7 @@ using (var client = new HttpClient())
 	var formatter = new ProtoBufMediaTypeFormatter();
 	var request = new SearchProductRequest { Name = 'iphone', OrderBy = 'id' };
 	var content = new ObjectContent<SearchProductRequest>(request, formatter);
-	var response = await client.PostAsync("http://localhost/api/products:search");
+	var response = await client.PostAsync("http://localhost/api/products:search", content);
 	var products = await response.Content.ReadAsAsync<Product[]>(new[] {formatter});
 }
 ```
