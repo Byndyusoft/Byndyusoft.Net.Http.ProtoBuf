@@ -48,23 +48,7 @@ await client.PutAsProtoBufAsync("http://localhost/api/products/1", product);
 await client.PostAsProtoBufAsync("http://localhost/api/products/1", product);
 ```
 
-### Installing
-
-```shell
-dotnet add package Byndyusoft.Net.Http.ProtoBuf
-```
-
-***
-
-## Byndyusoft.Net.Http.Formatting.ProtoBuf
-
-[![(License)](https://img.shields.io/github/license/Byndyusoft/Byndyusoft.Net.Http.Formatting.ProtoBuf.svg)](LICENSE.txt)
-[![Nuget](http://img.shields.io/nuget/v/Byndyusoft.Net.Http.Formatting.ProtoBuf.svg?maxAge=10800)](https://www.nuget.org/packages/Byndyusoft.Net.Http.Formatting.ProtoBuf/) [![NuGet downloads](https://img.shields.io/nuget/dt/Byndyusoft.Net.Http.Formatting.ProtoBuf.svg)](https://www.nuget.org/packages/Byndyusoft.Net.Http.Formatting.ProtoBuf/) 
-
-
-This package adds `ProtoBufMediaTypeFormatter` class for formatting `HttpClient` requests and responses.
-
-So for example:
+This package also adds `ProtoBufMediaTypeFormatter` class for formatting `HttpClient` requests and responses:
 
 ```csharp
 using (var client = new HttpClient())
@@ -80,10 +64,8 @@ using (var client = new HttpClient())
 ### Installing
 
 ```shell
-dotnet add package Byndyusoft.Net.Http.Formatting.ProtoBuf
+dotnet add package Byndyusoft.Net.Http.ProtoBuf
 ```
-
-***
 
 # Contributing
 

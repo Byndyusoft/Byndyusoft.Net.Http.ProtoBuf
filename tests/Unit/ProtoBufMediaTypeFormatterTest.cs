@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
+using System.Net.Http.ProtoBuf.Formatting;
 using System.Threading.Tasks;
 using Byndyusoft.Net.Http.ProtoBuf.Models;
 using ProtoBuf.Meta;

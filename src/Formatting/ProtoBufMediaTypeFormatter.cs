@@ -1,10 +1,10 @@
 ﻿using System.IO;
-using System.Net.Http.ProtoBuf;
+using System.Net.Http.Formatting;
 using System.Threading;
 using System.Threading.Tasks;
 using ProtoBuf.Meta;
 
-namespace System.Net.Http.Formatting
+namespace System.Net.Http.ProtoBuf.Formatting
 {
     /// <summary>
     ///     <see cref="MediaTypeFormatter" /> class to handle ProtoBuf.

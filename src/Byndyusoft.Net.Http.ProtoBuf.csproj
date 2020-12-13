@@ -11,12 +11,25 @@
       System.Net.Http.ProtoBuf.HttpClientProtoBufExtensions
       System.Net.Http.ProtoBuf.HttpContentProtoBufExtensions
       System.Net.Http.ProtoBuf.ProtoBufContent
+      System.Net.Http.ProtoBuf.Formatting.ProtoBufMediaTypeFormatter
     </Description>
-    <PackageTags>Byndyusoft;ProtoBuf;HttpClient;WebApi;AspNet</PackageTags>
+    <PackageTags>Byndyusoft;Net;Http:ProtoBuf</PackageTags>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <PackageIcon>icon.png</PackageIcon>
+    <LangVersion>8</LangVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>0.4.0</Version>
+    <Authors>Byndyusoft</Authors>
+    <RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.Net.Http.ProtoBuf</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <None Include="..\icon.png" Pack="true" PackagePath="icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Byndyusoft.Net.Http" Version="0.1.0" />
     <PackageReference Include="protobuf-net" Version="3.0.73" />
     <PackageReference Include="System.IO.Pipelines" Version="5.0.1" />
   </ItemGroup>

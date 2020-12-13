@@ -24,21 +24,10 @@ jobs:
       - name: test
         run: dotnet test
         
-      - name: publish Byndyusoft.Net.Http.ProtoBuf
+      - name: publish
         uses: rohith/publish-nuget@v2
         with:
-          PROJECT_FILE_PATH: src/Byndyusoft.Net.Http.ProtoBuf/Byndyusoft.Net.Http.ProtoBuf.csproj
-          VERSION_FILE_PATH: Directory.Build.props
-          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
-          TAG_COMMIT: false
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          INCLUDE_SYMBOLS: true
-
-      - name: publish Byndyusoft.Net.Http.Formatting.ProtoBuf
-        uses: rohith/publish-nuget@v2
-        with:
-          PROJECT_FILE_PATH: src/Byndyusoft.Net.Http.Formatting.ProtoBuf/Byndyusoft.Net.Http.Formatting.ProtoBuf.csproj
-          VERSION_FILE_PATH: Directory.Build.props
+          PROJECT_FILE_PATH: src/Byndyusoft.Net.Http.ProtoBuf.csproj
           VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
           TAG_COMMIT: false
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
