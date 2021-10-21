@@ -70,6 +70,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [InlineData(typeof(IInterface), false)]
         [InlineData(typeof(AbstractClass), false)]
         [InlineData(typeof(NonPublicClass), false)]
+        [InlineData(typeof(NonContractType), false)]
         [InlineData(typeof(Dictionary<string, object>), false)]
         [InlineData(typeof(string), true)]
         [InlineData(typeof(SimpleType), true)]
