@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.Pipelines;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.WebUtilities;
 using ProtoBuf.Meta;
 
 namespace System.Net.Http.ProtoBuf.Internal

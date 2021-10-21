@@ -46,7 +46,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task ReadFromProtoBufAsync_NullObject_Test()
         {
             var content = new StreamProtoBufHttpContent();
-            content.WriteObject<ValueMember>(null, _typeModel);
+            content.WriteObject<SimpleType>(null, _typeModel);
 
             var model = await content.ReadFromProtoBufAsync(typeof(SimpleType), _typeModel);
 
@@ -68,7 +68,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task ReadFromProtoBufAsync_Generic_NullObject_Test()
         {
             var content = new StreamProtoBufHttpContent();
-            content.WriteObject<ValueMember>(null, _typeModel);
+            content.WriteObject<SimpleType>(null, _typeModel);
 
             var model = await content.ReadFromProtoBufAsync<SimpleType>(_typeModel);
 
