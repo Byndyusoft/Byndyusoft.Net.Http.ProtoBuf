@@ -1,6 +1,6 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
 using ProtoBuf.Meta;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace System.Net.Http.ProtoBuf
 {
@@ -24,7 +24,7 @@ namespace System.Net.Http.ProtoBuf
         /// </param>
         /// <returns>A task object representing the asynchronous operation.</returns>
         public static Task<HttpResponseMessage> PostAsProtoBufAsync<TValue>(this HttpClient client,
-            string requestUri, TValue value, TypeModel typeModel = null,
+            string requestUri, TValue value, TypeModel? typeModel = null,
             CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
@@ -48,7 +48,7 @@ namespace System.Net.Http.ProtoBuf
         /// </param>
         /// <returns>A task object representing the asynchronous operation.</returns>
         public static Task<HttpResponseMessage> PostAsProtoBufAsync<TValue>(this HttpClient client, Uri requestUri,
-            TValue value, TypeModel typeModel = null, CancellationToken cancellationToken = default)
+            TValue value, TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 

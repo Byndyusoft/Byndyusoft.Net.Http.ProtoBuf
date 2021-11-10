@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using ProtoBuf.Meta;
+using System.IO;
 using System.Net.Http;
-using ProtoBuf.Meta;
 
 namespace Byndyusoft.Net.Http.ProtoBuf
 {

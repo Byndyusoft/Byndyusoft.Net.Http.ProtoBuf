@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Byndyusoft.Net.Http.ProtoBuf.Models;
+using ProtoBuf.Meta;
+using System;
 using System.Net.Http;
 using System.Net.Http.ProtoBuf;
 using System.Threading.Tasks;
-using Byndyusoft.Net.Http.ProtoBuf.Models;
-using ProtoBuf.Meta;
 using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Unit
@@ -16,7 +16,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task ReadFromProtoBufAsync_NullContent_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpContent) null).ReadFromProtoBufAsync(typeof(object)));
+                ((HttpContent)null).ReadFromProtoBufAsync(typeof(object)));
 
             Assert.Equal("content", exception.ParamName);
         }
@@ -25,7 +25,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task ReadFromProtoBufAsync_Generic_NullContent_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpContent) null).ReadFromProtoBufAsync<object>());
+                ((HttpContent)null).ReadFromProtoBufAsync<object>());
 
             Assert.Equal("content", exception.ParamName);
         }

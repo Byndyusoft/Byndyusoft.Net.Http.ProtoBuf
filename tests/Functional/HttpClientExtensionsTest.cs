@@ -1,9 +1,9 @@
-﻿using System.Net.Http;
-using System.Net.Http.ProtoBuf;
-using System.Threading.Tasks;
-using Byndyusoft.Net.Http.ProtoBuf.Models;
+﻿using Byndyusoft.Net.Http.ProtoBuf.Models;
 using Microsoft.Extensions.DependencyInjection;
 using ProtoBuf.Meta;
+using System.Net.Http;
+using System.Net.Http.ProtoBuf;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Functional

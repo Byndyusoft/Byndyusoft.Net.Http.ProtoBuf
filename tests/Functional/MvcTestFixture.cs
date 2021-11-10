@@ -1,12 +1,12 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Net.Sockets;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Net.Sockets;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Functional
 {
@@ -37,7 +37,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Functional
             {
                 if (_client == null)
                 {
-                    _client = new HttpClient {BaseAddress = new Uri(_url)};
+                    _client = new HttpClient { BaseAddress = new Uri(_url) };
                     ConfigureHttpClient(_client);
                 }
 
@@ -77,7 +77,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Functional
         {
             var listener = new TcpListener(IPAddress.Loopback, 0);
             listener.Start();
-            var port = ((IPEndPoint) listener.LocalEndpoint).Port;
+            var port = ((IPEndPoint)listener.LocalEndpoint).Port;
             listener.Stop();
             return port;
         }

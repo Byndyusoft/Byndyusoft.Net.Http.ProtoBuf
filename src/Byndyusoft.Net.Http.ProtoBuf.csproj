@@ -1,39 +1,41 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <RootNamespace>System.Net.Http.ProtoBuf</RootNamespace>
-    <PackageId>Byndyusoft.Net.Http.ProtoBuf</PackageId>
-    <Title>Byndyusoft.Net.Http.ProtoBuf</Title>
-    <Description>
-      Provides extension methods for System.Net.Http.HttpClient and System.Net.Http.HttpContent that perform automatic serialization and deserialization using ProtoBuf.
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<RootNamespace>System.Net.Http.ProtoBuf</RootNamespace>
+		<PackageId>Byndyusoft.Net.Http.ProtoBuf</PackageId>
+		<Title>Byndyusoft.Net.Http.ProtoBuf</Title>
+		<Description>
+			Provides extension methods for System.Net.Http.HttpClient and System.Net.Http.HttpContent that perform automatic serialization and deserialization using ProtoBuf.
 
-      Commonly Used Types:
-      System.Net.Http.ProtoBuf.HttpClientProtoBufExtensions
-      System.Net.Http.ProtoBuf.HttpContentProtoBufExtensions
-      System.Net.Http.ProtoBuf.ProtoBufContent
-      System.Net.Http.ProtoBuf.Formatting.ProtoBufMediaTypeFormatter
-    </Description>
-    <PackageTags>Byndyusoft;Net;Http:ProtoBuf</PackageTags>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <PackageIcon>icon.png</PackageIcon>
-    <LangVersion>8</LangVersion>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>0.4.0</Version>
-    <Authors>Byndyusoft</Authors>
-    <RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.Net.Http.ProtoBuf</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
+			Commonly Used Types:
+			System.Net.Http.ProtoBuf.HttpClientProtoBufExtensions
+			System.Net.Http.ProtoBuf.HttpContentProtoBufExtensions
+			System.Net.Http.ProtoBuf.ProtoBufContent
+			System.Net.Http.ProtoBuf.Formatting.ProtoBufMediaTypeFormatter
+		</Description>
+		<PackageTags>Byndyusoft;Net;Http:ProtoBuf</PackageTags>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Version>0.4.0</Version>
+		<Authors>Byndyusoft</Authors>
+		<RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.Net.Http.ProtoBuf</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<LangVersion>9</LangVersion>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\icon.png" Pack="true" PackagePath="icon.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\icon.png" Pack="true" PackagePath="icon.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Byndyusoft.Net.Http" Version="0.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-    <PackageReference Include="protobuf-net" Version="3.0.73" />
-    <PackageReference Include="System.IO.Pipelines" Version="5.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Byndyusoft.Net.Http" Version="0.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+		<PackageReference Include="protobuf-net" Version="3.0.0" />
+		<PackageReference Include="System.IO.Pipelines" Version="5.0.0" />
+	</ItemGroup>
 
 
 </Project>

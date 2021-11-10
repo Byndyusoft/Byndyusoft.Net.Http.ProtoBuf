@@ -1,6 +1,6 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
 using ProtoBuf.Meta;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace System.Net.Http.ProtoBuf
 {
@@ -22,13 +22,14 @@ namespace System.Net.Http.ProtoBuf
         ///     cancellation.
         /// </param>
         /// <returns>A task object representing the asynchronous operation.</returns>
-        public static Task<object> GetFromProtoBufAsync(this HttpClient client, string requestUri, Type type,
-            TypeModel typeModel, CancellationToken cancellationToken = default)
+        public static Task<object?> GetFromProtoBufAsync(this HttpClient client, string requestUri, Type type,
+            TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeader);
+            requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeaders.ApplicationProtoBuf);
+            requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeaders.ApplicationXProtoBuf);
 
             var taskResponse = client.SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead,
                 cancellationToken);
@@ -48,8 +49,8 @@ namespace System.Net.Http.ProtoBuf
         ///     cancellation.
         /// </param>
         /// <returns>A task object representing the asynchronous operation.</returns>
-        public static Task<object> GetFromProtoBufAsync(this HttpClient client, Uri requestUri, Type type,
-            TypeModel typeModel, CancellationToken cancellationToken = default)
+        public static Task<object?> GetFromProtoBufAsync(this HttpClient client, Uri requestUri, Type type,
+            TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
@@ -75,12 +76,13 @@ namespace System.Net.Http.ProtoBuf
         /// </param>
         /// <returns>A task object representing the asynchronous operation.</returns>
         public static Task<TValue> GetFromProtoBufAsync<TValue>(this HttpClient client, string requestUri,
-            TypeModel typeModel, CancellationToken cancellationToken = default)
+            TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeader);
+            requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeaders.ApplicationProtoBuf);
+            requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeaders.ApplicationXProtoBuf);
 
             var taskResponse = client.SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead,
                 cancellationToken);
@@ -101,7 +103,7 @@ namespace System.Net.Http.ProtoBuf
         /// </param>
         /// <returns>A task object representing the asynchronous operation.</returns>
         public static Task<TValue> GetFromProtoBufAsync<TValue>(this HttpClient client, Uri requestUri,
-            TypeModel typeModel, CancellationToken cancellationToken = default)
+            TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
 
@@ -125,7 +127,7 @@ namespace System.Net.Http.ProtoBuf
         ///     cancellation.
         /// </param>
         /// <returns>A task object representing the asynchronous operation.</returns>
-        public static Task<object> GetFromProtoBufAsync(this HttpClient client, string requestUri, Type type,
+        public static Task<object?> GetFromProtoBufAsync(this HttpClient client, string requestUri, Type type,
             CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
@@ -145,7 +147,7 @@ namespace System.Net.Http.ProtoBuf
         ///     cancellation.
         /// </param>
         /// <returns>A task object representing the asynchronous operation.</returns>
-        public static Task<object> GetFromProtoBufAsync(this HttpClient client, Uri requestUri, Type type,
+        public static Task<object?> GetFromProtoBufAsync(this HttpClient client, Uri requestUri, Type type,
             CancellationToken cancellationToken = default)
         {
             if (client == null) throw new ArgumentNullException(nameof(client));
@@ -193,26 +195,22 @@ namespace System.Net.Http.ProtoBuf
             return client.GetFromProtoBufAsync<TValue>(requestUri, null, cancellationToken);
         }
 
-        private static async Task<object> GetFromProtoBufAsyncCore(Task<HttpResponseMessage> taskResponse, Type type,
-            TypeModel typeModel, CancellationToken cancellationToken)
+        private static async Task<object?> GetFromProtoBufAsyncCore(Task<HttpResponseMessage> taskResponse, Type type,
+            TypeModel? typeModel, CancellationToken cancellationToken)
         {
-            using (var response = await taskResponse.ConfigureAwait(false))
-            {
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromProtoBufAsync(type, typeModel, cancellationToken)
-                    .ConfigureAwait(false);
-            }
+            using var response = await taskResponse.ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromProtoBufAsync(type, typeModel, cancellationToken)
+                .ConfigureAwait(false);
         }
 
         private static async Task<T> GetFromProtoBufAsyncCore<T>(Task<HttpResponseMessage> taskResponse,
-            TypeModel typeModel, CancellationToken cancellationToken)
+            TypeModel? typeModel, CancellationToken cancellationToken)
         {
-            using (var response = await taskResponse.ConfigureAwait(false))
-            {
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromProtoBufAsync<T>(typeModel, cancellationToken)
-                    .ConfigureAwait(false);
-            }
+            using var response = await taskResponse.ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromProtoBufAsync<T>(typeModel, cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 }

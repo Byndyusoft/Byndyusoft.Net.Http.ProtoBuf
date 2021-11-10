@@ -1,4 +1,6 @@
-﻿using System;
+using Byndyusoft.Net.Http.ProtoBuf.Models;
+using ProtoBuf.Meta;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,9 +8,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.ProtoBuf.Formatting;
+using System.Threading;
 using System.Threading.Tasks;
-using Byndyusoft.Net.Http.ProtoBuf.Models;
-using ProtoBuf.Meta;
 using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Unit
@@ -18,12 +19,13 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         private readonly ProtoBufHttpContent _content;
         private readonly TransportContext _context = null;
         private readonly ProtoBufMediaTypeFormatter _formatter;
-        private readonly IFormatterLogger _logger = null;
+        private readonly CancellationToken _cancellationToken;
 
         public ProtoBufMediaTypeFormatterTest()
         {
+            _cancellationToken = new CancellationToken();
             _formatter = new ProtoBufMediaTypeFormatter();
-            _content = new ProtoBufHttpContent(_formatter.Model);
+            _content = new ProtoBufHttpContent(_formatter.TypeModel);
         }
 
         [Fact]
@@ -33,7 +35,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var formatter = new ProtoBufMediaTypeFormatter();
 
             // Assert
-            Assert.NotNull(formatter.Model);
+            Assert.NotNull(formatter.TypeModel);
         }
 
         [Fact]
@@ -46,7 +48,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var formatter = new ProtoBufMediaTypeFormatter(model);
 
             // Assert
-            Assert.Same(model, formatter.Model);
+            Assert.Same(model, formatter.TypeModel);
         }
 
         [Theory]
@@ -99,7 +101,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             // Act
             var exception =
                 await Assert.ThrowsAsync<ArgumentNullException>(
-                    () => _formatter.ReadFromStreamAsync(null, _content.Stream, _content, _logger));
+                    () => _formatter.ReadFromStreamAsync(null!, _content.Stream, _content, _cancellationToken));
 
             // Assert
             Assert.Equal("type", exception.ParamName);
@@ -111,7 +113,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             // Act
             var exception =
                 await Assert.ThrowsAsync<ArgumentNullException>(
-                    () => _formatter.ReadFromStreamAsync(typeof(object), null, _content, _logger));
+                    () => _formatter.ReadFromStreamAsync(typeof(object), null!, _content, _cancellationToken));
 
             // Assert
             Assert.Equal("readStream", exception.ParamName);
@@ -123,7 +125,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             // Act
             var exception =
                 await Assert.ThrowsAsync<ArgumentNullException>(
-                    () => _formatter.ReadFromStreamAsync(typeof(object), _content.Stream, null, _logger));
+                    () => _formatter.ReadFromStreamAsync(typeof(object), _content.Stream, null!, _cancellationToken));
 
             // Assert
             Assert.Equal("content", exception.ParamName);
@@ -136,7 +138,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             _content.WriteObject<object>(null);
 
             // Act
-            var result = await _formatter.ReadFromStreamAsync(typeof(object), _content.Stream, _content, _logger);
+            var result = await _formatter.ReadFromStreamAsync(typeof(object), _content.Stream, _content, _cancellationToken);
 
             // Assert
             Assert.Null(result);
@@ -150,7 +152,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             _content.WriteObject(expectedInt);
 
             // Act
-            var result = await _formatter.ReadFromStreamAsync(typeof(int), _content.Stream, _content, _logger);
+            var result = await _formatter.ReadFromStreamAsync(typeof(int), _content.Stream, _content, _cancellationToken);
 
             // Assert
             Assert.Equal(expectedInt, result);
@@ -165,7 +167,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             _content.WriteObject(input);
 
             // Act
-            var result = await _formatter.ReadFromStreamAsync(typeof(SimpleType), _content.Stream, _content, _logger);
+            var result = await _formatter.ReadFromStreamAsync(typeof(SimpleType), _content.Stream, _content, _cancellationToken);
 
             // Assert
             Assert.NotNull(result);
@@ -181,7 +183,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             _content.WriteObject(input);
 
             // Act
-            var result = await _formatter.ReadFromStreamAsync(typeof(ComplexType), _content.Stream, _content, _logger);
+            var result = await _formatter.ReadFromStreamAsync(typeof(ComplexType), _content.Stream, _content, _cancellationToken);
 
             // Assert
             Assert.NotNull(result);
@@ -196,7 +198,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             // Act
             var exception =
                 await Assert.ThrowsAsync<ArgumentNullException>(
-                    () => _formatter.WriteToStreamAsync(null, new object(), _content.Stream, _content, _context));
+                    () => _formatter.WriteToStreamAsync(null!, new object(), _content.Stream, _content, _context, _cancellationToken));
 
             // Assert
             Assert.Equal("type", exception.ParamName);
@@ -208,7 +210,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             // Act
             var exception =
                 await Assert.ThrowsAsync<ArgumentNullException>(
-                    () => _formatter.WriteToStreamAsync(typeof(object), new object(), null, _content, _context));
+                    () => _formatter.WriteToStreamAsync(typeof(object), new object(), null!, _content, _context, _cancellationToken));
 
             // Assert
             Assert.Equal("writeStream", exception.ParamName);
@@ -220,7 +222,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             // Act
             var exception =
                 await Assert.ThrowsAsync<ArgumentNullException>(
-                    () => _formatter.WriteToStreamAsync(typeof(object), new object(), _content.Stream, null, _context));
+                    () => _formatter.WriteToStreamAsync(typeof(object), new object(), _content.Stream, null!, _context, _cancellationToken));
 
             // Assert
             Assert.Equal("content", exception.ParamName);
@@ -230,7 +232,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task WriteToStreamAsync_WritesNullObject()
         {
             // Act
-            await _formatter.WriteToStreamAsync(typeof(object), null, _content.Stream, _content, _context);
+            await _formatter.WriteToStreamAsync(typeof(object), null, _content.Stream, _content, _context, _cancellationToken);
 
             // Assert
             var result = _content.ReadObject<object>();
@@ -245,7 +247,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var expectedInt = 10;
 
             // Act
-            await _formatter.WriteToStreamAsync(typeof(int), expectedInt, _content.Stream, _content, _context);
+            await _formatter.WriteToStreamAsync(typeof(int), expectedInt, _content.Stream, _content, _context, _cancellationToken);
 
             // Assert
             var result = _content.ReadObject<int>();
@@ -260,7 +262,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var input = SimpleType.Create();
 
             // Act
-            await _formatter.WriteToStreamAsync(typeof(SimpleType), input, _content.Stream, _content, _context);
+            await _formatter.WriteToStreamAsync(typeof(SimpleType), input, _content.Stream, _content, _context, _cancellationToken);
 
             // Assert
             var result = _content.ReadObject<SimpleType>();
@@ -275,7 +277,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var input = ComplexType.Create();
 
             // Act
-            await _formatter.WriteToStreamAsync(typeof(ComplexType), input, _content.Stream, _content, _context);
+            await _formatter.WriteToStreamAsync(typeof(ComplexType), input, _content.Stream, _content, _context, _cancellationToken);
 
             // Assert
             var result = _content.ReadObject<ComplexType>();
