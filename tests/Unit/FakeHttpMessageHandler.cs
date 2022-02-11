@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.ProtoBuf;
 using System.Threading;
@@ -8,9 +8,9 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
 {
     public class FakeHttpMessageHandler : HttpMessageHandler
     {
-        public ProtoBufContent ResponseContent { get; set; }
+        public ProtoBufContent? ResponseContent { get; set; }
 
-        public HttpRequestMessage Request { get; private set; }
+        public HttpRequestMessage Request { get; private set; } = default!;
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)

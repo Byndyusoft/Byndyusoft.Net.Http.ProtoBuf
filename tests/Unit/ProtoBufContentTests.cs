@@ -1,10 +1,10 @@
-﻿using System;
+using Byndyusoft.Net.Http.ProtoBuf.Models;
+using ProtoBuf.Meta;
+using System;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Net.Http.ProtoBuf;
 using System.Threading.Tasks;
-using Byndyusoft.Net.Http.ProtoBuf.Models;
-using ProtoBuf.Meta;
 using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Unit
@@ -19,21 +19,21 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public void Create_NullInputType_ThrowsException()
         {
             var exception = Assert.Throws<ArgumentNullException>(() =>
-                ProtoBufContent.Create(new object(), null,
-                    RuntimeTypeModel.Default, ProtoBufDefaults.MediaTypeHeader));
+                ProtoBufContent.Create(null!,
+                    new object(), RuntimeTypeModel.Default, ProtoBufDefaults.MediaTypeHeader));
 
-            Assert.Equal("inputType", exception.ParamName);
+            Assert.Equal("type", exception.ParamName);
         }
 
         [Fact]
         public void Create_InputValueInvalidType_ThrowsException()
         {
             var exception = Assert.Throws<ArgumentException>(() =>
-                ProtoBufContent.Create(new SimpleType(), typeof(int),
-                    RuntimeTypeModel.Default, ProtoBufDefaults.MediaTypeHeader));
+                ProtoBufContent.Create(typeof(int),
+                    SimpleType.Create(), RuntimeTypeModel.Default, ProtoBufDefaults.MediaTypeHeader));
 
-            Assert.Equal(
-                $"The specified type {typeof(int)} must derive from the specific value's type {typeof(SimpleType)}.",
+            Assert.Contains(
+                $"An object of type '{nameof(SimpleType)}' cannot be used with a type parameter of '{nameof(Int32)}'.",
                 exception.Message);
         }
 
@@ -42,11 +42,11 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         {
             var inputValue = SimpleType.Create();
 
-            var content = ProtoBufContent.Create(inputValue, typeof(SimpleType), _typeModel, _mediaType);
+            var content = ProtoBufContent.Create(typeof(SimpleType), inputValue, _typeModel, _mediaType);
 
             Assert.Same(inputValue, content.Value);
             Assert.Same(typeof(SimpleType), content.ObjectType);
-            Assert.Same(_mediaType, content.Headers.ContentType);
+            Assert.Equal(_mediaType, content.Headers.ContentType);
             Assert.Same(_typeModel, content.TypeModel);
         }
 
@@ -55,11 +55,11 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         {
             var inputValue = SimpleType.Create();
 
-            var content = ProtoBufContent.Create(inputValue, typeof(SimpleType));
+            var content = ProtoBufContent.Create(typeof(SimpleType), inputValue);
 
             Assert.Same(inputValue, content.Value);
             Assert.Same(typeof(SimpleType), content.ObjectType);
-            Assert.Same(ProtoBufDefaults.MediaTypeHeader, content.Headers.ContentType);
+            Assert.Equal(ProtoBufDefaults.MediaTypeHeader, content.Headers.ContentType);
             Assert.Same(ProtoBufDefaults.TypeModel, content.TypeModel);
         }
 
@@ -72,7 +72,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
 
             Assert.Same(inputValue, content.Value);
             Assert.Same(typeof(SimpleType), content.ObjectType);
-            Assert.Same(_mediaType, content.Headers.ContentType);
+            Assert.Equal(_mediaType, content.Headers.ContentType);
             Assert.Same(_typeModel, content.TypeModel);
         }
 
@@ -85,7 +85,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
 
             Assert.Same(inputValue, content.Value);
             Assert.Same(typeof(SimpleType), content.ObjectType);
-            Assert.Same(ProtoBufDefaults.MediaTypeHeader, content.Headers.ContentType);
+            Assert.Equal(ProtoBufDefaults.MediaTypeHeader, content.Headers.ContentType);
             Assert.Same(ProtoBufDefaults.TypeModel, content.TypeModel);
         }
 
@@ -105,7 +105,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task ReadAsByteArrayAsync_NullObject_Test()
         {
-            var content = ProtoBufContent.Create<SimpleType>(null, _typeModel, _mediaType);
+            var content = ProtoBufContent.Create<SimpleType>(null!, _typeModel, _mediaType);
 
             var bytes = await content.ReadAsByteArrayAsync();
             await using var stream = new MemoryStream(bytes);
@@ -128,7 +128,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task ReadAsStreamArrayAsync_NullObject_Test()
         {
-            var content = ProtoBufContent.Create<SimpleType>(null, _typeModel, _mediaType);
+            var content = ProtoBufContent.Create<SimpleType>(null!, _typeModel, _mediaType);
 
             await using var stream = await content.ReadAsStreamAsync();
 
@@ -152,7 +152,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task CopyToAsync_NullObject_Test()
         {
-            var content = ProtoBufContent.Create<SimpleType>(null, _typeModel, _mediaType);
+            var content = ProtoBufContent.Create<SimpleType>(null!, _typeModel, _mediaType);
             await using var stream = new MemoryStream();
 
             await content.CopyToAsync(stream);

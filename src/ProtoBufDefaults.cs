@@ -1,5 +1,5 @@
-﻿using System.Net.Http.Headers;
 using ProtoBuf.Meta;
+using System.Net.Http.Headers;
 
 namespace System.Net.Http.ProtoBuf
 {

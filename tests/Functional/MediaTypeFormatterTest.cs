@@ -1,10 +1,9 @@
-﻿using System.Net.Http;
-using System.Net.Http.Formatting;
+﻿using Byndyusoft.Net.Http.ProtoBuf.Models;
+using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http;
 using System.Net.Http.ProtoBuf;
 using System.Net.Http.ProtoBuf.Formatting;
 using System.Threading.Tasks;
-using Byndyusoft.Net.Http.ProtoBuf.Models;
-using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Functional
@@ -39,7 +38,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Functional
             var content = new ObjectContent<SimpleType>(input, _formatter);
             var response = await Client.PostAsync("/protobuf-formatter", content);
             response.EnsureSuccessStatusCode();
-            var result = await response.Content.ReadAsAsync<SimpleType>(new[] {_formatter});
+            var result = await response.Content.ReadAsAsync<SimpleType>(new[] { _formatter });
 
             // Assert
             Assert.NotNull(result);

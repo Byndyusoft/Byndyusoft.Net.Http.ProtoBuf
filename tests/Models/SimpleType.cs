@@ -1,13 +1,18 @@
-using System.IO;
 using ProtoBuf;
+using System.IO;
 using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Models
 {
+    public class NonContractType
+    {
+
+    }
+
     [ProtoContract]
     public class SimpleType
     {
-        [ProtoMember(2)] public string Field;
+        [ProtoMember(2)] public string Field = default!;
 
         [ProtoMember(1)] public int Property { get; set; }
 
@@ -15,7 +20,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Models
 
         [ProtoMember(4)] public int? Nullable { get; set; }
 
-        [ProtoMember(5)] public int[] Array { get; set; }
+        [ProtoMember(5)] public int[] Array { get; set; } = default!;
 
         public static SimpleType Create()
         {
@@ -24,7 +29,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Models
                 Property = 10,
                 Enum = SeekOrigin.Current,
                 Field = "string",
-                Array = new[] {1, 2},
+                Array = new[] { 1, 2 },
                 Nullable = 100
             };
         }

@@ -1,10 +1,10 @@
-﻿using System;
+using Byndyusoft.Net.Http.ProtoBuf.Models;
+using ProtoBuf.Meta;
+using System;
 using System.Net.Http;
 using System.Net.Http.ProtoBuf;
 using System.Threading;
 using System.Threading.Tasks;
-using Byndyusoft.Net.Http.ProtoBuf.Models;
-using ProtoBuf.Meta;
 using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Unit
@@ -27,7 +27,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task GetFromProtoBufAsync_StringUri_WhenClientIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpClient) null).GetFromProtoBufAsync(_uri, typeof(object), CancellationToken.None));
+               ((HttpClient)null!).GetFromProtoBufAsync(_uri, typeof(object), CancellationToken.None));
             Assert.Equal("client", exception.ParamName);
         }
 
@@ -35,7 +35,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task GetFromProtoBufAsync_StringUri_WhenUriIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-                _client.GetFromProtoBufAsync((string) null, typeof(object), CancellationToken.None));
+                _client.GetFromProtoBufAsync(((string)null!), typeof(object), CancellationToken.None));
             Assert.Equal(
                 "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
                 exception.Message);
@@ -59,7 +59,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task GetFromProtoBufAsync_Generic_StringUri_WhenClientIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpClient) null).GetFromProtoBufAsync<object>(_uri, CancellationToken.None));
+               ((HttpClient)null!).GetFromProtoBufAsync<object>(_uri, CancellationToken.None));
             Assert.Equal("client", exception.ParamName);
         }
 
@@ -67,7 +67,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task GetFromProtoBufAsync_Generic_StringUri_WhenUriIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-                _client.GetFromProtoBufAsync<object>((string) null, CancellationToken.None));
+                _client.GetFromProtoBufAsync<object>(((string)null!), CancellationToken.None));
             Assert.Equal(
                 "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
                 exception.Message);
@@ -89,7 +89,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task GetFromProtoBufAsync_Uri_WhenClientIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpClient) null).GetFromProtoBufAsync(new Uri(_uri), typeof(object), CancellationToken.None));
+               ((HttpClient)null!).GetFromProtoBufAsync(new Uri(_uri), typeof(object), CancellationToken.None));
             Assert.Equal("client", exception.ParamName);
         }
 
@@ -97,7 +97,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task GetFromProtoBufAsync_Uri_WhenUriIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-                _client.GetFromProtoBufAsync((Uri) null, typeof(object), CancellationToken.None));
+                _client.GetFromProtoBufAsync(((Uri)null!), typeof(object), CancellationToken.None));
             Assert.Equal(
                 "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
                 exception.Message);
@@ -122,7 +122,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task GetFromProtoBufAsync_Generic_Uri_WhenClientIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpClient) null).GetFromProtoBufAsync<object>(new Uri(_uri), CancellationToken.None));
+               ((HttpClient)null!).GetFromProtoBufAsync<object>(new Uri(_uri), CancellationToken.None));
             Assert.Equal("client", exception.ParamName);
         }
 
@@ -130,7 +130,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task GetFromProtoBufAsync_Generic_Uri_WhenUriIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-                _client.GetFromProtoBufAsync<object>((Uri) null, CancellationToken.None));
+                _client.GetFromProtoBufAsync<object>(((Uri)null!), CancellationToken.None));
             Assert.Equal(
                 "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
                 exception.Message);

@@ -1,8 +1,7 @@
-﻿using System.IO;
+using ProtoBuf.Meta;
+using System.IO;
 using System.Net.Http.Formatting;
 using System.Threading;
-using System.Threading.Tasks;
-using ProtoBuf.Meta;
 
 namespace System.Net.Http.ProtoBuf.Formatting
 {
@@ -11,22 +10,15 @@ namespace System.Net.Http.ProtoBuf.Formatting
     /// </summary>
     /// <see
     ///     href="https://github.com/protobuf-net/protobuf-net/blob/main/src/protobuf-net.AspNetCore/Formatters/ProtoInputFormatter.cs" />
-    public class ProtoBufMediaTypeFormatter : MediaTypeFormatter
+    public class ProtoBufMediaTypeFormatter : BufferedMediaTypeFormatter
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProtoBufMediaTypeFormatter" /> class.
         /// </summary>
-        public ProtoBufMediaTypeFormatter() : this(ProtoBufDefaults.TypeModel)
-        {
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ProtoBufMediaTypeFormatter" /> class.
-        /// </summary>
         /// <param name="model">Options for running serialization.</param>
-        public ProtoBufMediaTypeFormatter(TypeModel model)
+        public ProtoBufMediaTypeFormatter(TypeModel? model = null)
         {
-            Model = model ?? throw new ArgumentNullException(nameof(model));
+            TypeModel = model ?? ProtoBufDefaults.TypeModel;
             SupportedMediaTypes.Add(ProtoBufDefaults.MediaTypeHeaders.ApplicationProtoBuf);
             SupportedMediaTypes.Add(ProtoBufDefaults.MediaTypeHeaders.ApplicationXProtoBuf);
         }
@@ -34,61 +26,45 @@ namespace System.Net.Http.ProtoBuf.Formatting
         /// <summary>
         ///     Provides protobuf serialization support for a number of types.
         /// </summary>
-        public TypeModel Model { get; }
+        public TypeModel TypeModel { get; }
 
         /// <inheritdoc />
-        public override Task<object> ReadFromStreamAsync(Type type, Stream readStream, HttpContent content,
-            IFormatterLogger formatterLogger)
+        public override object? ReadFromStream(Type type, Stream readStream, HttpContent content, IFormatterLogger? formatterLogger = null,
+            CancellationToken cancellationToken = default)
         {
-            return ReadFromStreamAsync(type, readStream, content, formatterLogger, CancellationToken.None);
-        }
+            Guard.NotNull(type, nameof(type));
+            Guard.NotNull(readStream, nameof(readStream));
+            Guard.NotNull(content, nameof(content));
 
-        /// <inheritdoc />
-        public override async Task<object> ReadFromStreamAsync(Type type, Stream readStream, HttpContent content,
-            IFormatterLogger formatterLogger, CancellationToken cancellationToken)
-        {
-            if (type is null) throw new ArgumentNullException(nameof(type));
-            if (readStream is null) throw new ArgumentNullException(nameof(readStream));
-            if (content == null) throw new ArgumentNullException(nameof(content));
+            if (content is ObjectContent objectContent) return objectContent.Value;
 
-            return await content.ReadFromProtoBufAsync(type, Model, cancellationToken).ConfigureAwait(false);
-        }
+            var length = content.Headers.ContentLength ?? -1;
+            if (length == 0)
+                return null;
 
-        /// <inheritdoc />
-        public override Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
-            TransportContext transportContext)
-        {
-            return WriteToStreamAsync(type, value, writeStream, content, transportContext, CancellationToken.None);
+            return TypeModel.Deserialize(readStream, null, type);
         }
 
         /// <inheritdoc />
-        public override async Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
-            TransportContext transportContext, CancellationToken cancellationToken)
+        public override void WriteToStream(Type type, object? value, Stream writeStream, HttpContent content,
+            CancellationToken cancellationToken = default)
         {
-            if (type is null) throw new ArgumentNullException(nameof(type));
-            if (writeStream is null) throw new ArgumentNullException(nameof(writeStream));
-            if (content == null) throw new ArgumentNullException(nameof(content));
+            Guard.NotNull(type, nameof(type));
+            Guard.NotNull(writeStream, nameof(writeStream));
+            Guard.NotNull(content, nameof(content));
 
-            var protoBufContent = content as ProtoBufContent ?? ProtoBufContent.Create(value, type, Model);
-            await protoBufContent.CopyToAsync(writeStream).ConfigureAwait(false);
-            content.Headers.ContentLength = protoBufContent.Headers.ContentLength;
+            if (value != null)
+            {
+                TypeModel.Serialize(writeStream, value);
+            }
         }
 
         /// <inheritdoc />
-        public override bool CanReadType(Type type)
-        {
-            return CanSerialize(type);
-        }
+        public override bool CanReadType(Type type) => CanSerialize(type);
 
         /// <inheritdoc />
-        public override bool CanWriteType(Type type)
-        {
-            return CanSerialize(type);
-        }
+        public override bool CanWriteType(Type type) => CanSerialize(type);
 
-        private bool CanSerialize(Type type)
-        {
-            return Model.CanSerialize(type);
-        }
+        private bool CanSerialize(Type type) => TypeModel.CanSerialize(type);
     }
 }

@@ -1,7 +1,7 @@
-﻿using System.Net.Http.ProtoBuf.Internal;
+using ProtoBuf.Meta;
+using System.Net.Http.ProtoBuf.Formatting;
 using System.Threading;
 using System.Threading.Tasks;
-using ProtoBuf.Meta;
 
 namespace System.Net.Http.ProtoBuf
 {
@@ -22,15 +22,17 @@ namespace System.Net.Http.ProtoBuf
         ///     cancellation.
         /// </param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public static async Task<object> ReadFromProtoBufAsync(this HttpContent content, Type type,
-            TypeModel typeModel = null, CancellationToken cancellationToken = default)
+        public static async Task<object?> ReadFromProtoBufAsync(this HttpContent content, Type type,
+            TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (content == null) throw new ArgumentNullException(nameof(content));
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            Guard.NotNull(type, nameof(type));
+            Guard.NotNull(content, nameof(content));
 
-            if (content is ProtoBufContent protoBufContent) return protoBufContent.Value;
+            if (content is ObjectContent objectContent) return objectContent.Value;
 
-            return await ProtoBufHelper.ReadFromStreamAsync(content, type, typeModel, cancellationToken)
+            var formatter = new ProtoBufMediaTypeFormatter(typeModel);
+            using var readStream = await content.ReadAsStreamAsync().ConfigureAwait(false);
+            return await formatter.ReadFromStreamAsync(type, readStream, content, null, cancellationToken)
                 .ConfigureAwait(false);
         }
 
@@ -47,12 +49,12 @@ namespace System.Net.Http.ProtoBuf
         /// </param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public static async Task<T> ReadFromProtoBufAsync<T>(this HttpContent content,
-            TypeModel typeModel = null, CancellationToken cancellationToken = default)
+            TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (content == null) throw new ArgumentNullException(nameof(content));
+            Guard.NotNull(content, nameof(content));
 
-            return (T) await ReadFromProtoBufAsync(content, typeof(T), typeModel, cancellationToken)
-                .ConfigureAwait(false);
+            var result = await ReadFromProtoBufAsync(content, typeof(T), typeModel, cancellationToken).ConfigureAwait(false);
+            return (T)result!;
         }
     }
 }
