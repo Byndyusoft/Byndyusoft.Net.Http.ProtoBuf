@@ -77,6 +77,17 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         }
 
         [Fact]
+        public void Create_NullValue_Test()
+        {
+            var content = ProtoBufContent.Create(typeof(object), null, _typeModel, _mediaType);
+
+            Assert.Null(content.Value);
+            Assert.Same(typeof(string), content.ObjectType);
+            Assert.Equal(_mediaType, content.Headers.ContentType);
+            Assert.Same(_typeModel, content.TypeModel);
+        }
+
+        [Fact]
         public void Create_Generic_DefaultPropertyValues_Test()
         {
             var inputValue = SimpleType.Create();
