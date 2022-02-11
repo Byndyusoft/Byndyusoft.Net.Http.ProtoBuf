@@ -1,4 +1,4 @@
-﻿using Byndyusoft.Net.Http.ProtoBuf.Models;
+using Byndyusoft.Net.Http.ProtoBuf.Models;
 using ProtoBuf.Meta;
 using System;
 using System.Net.Http;
@@ -16,7 +16,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task ReadFromProtoBufAsync_NullContent_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpContent)null).ReadFromProtoBufAsync(typeof(object)));
+                ((HttpContent)null!).ReadFromProtoBufAsync(typeof(object)));
 
             Assert.Equal("content", exception.ParamName);
         }
@@ -25,7 +25,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task ReadFromProtoBufAsync_Generic_NullContent_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpContent)null).ReadFromProtoBufAsync<object>());
+                ((HttpContent)null!).ReadFromProtoBufAsync<object>());
 
             Assert.Equal("content", exception.ParamName);
         }
@@ -46,7 +46,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task ReadFromProtoBufAsync_NullObject_Test()
         {
             var content = new StreamProtoBufHttpContent();
-            content.WriteObject<SimpleType>(null, _typeModel);
+            content.WriteObject<SimpleType>(null!, _typeModel);
 
             var model = await content.ReadFromProtoBufAsync(typeof(SimpleType), _typeModel);
 
@@ -68,7 +68,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task ReadFromProtoBufAsync_Generic_NullObject_Test()
         {
             var content = new StreamProtoBufHttpContent();
-            content.WriteObject<SimpleType>(null, _typeModel);
+            content.WriteObject<SimpleType>(null!, _typeModel);
 
             var model = await content.ReadFromProtoBufAsync<SimpleType>(_typeModel);
 

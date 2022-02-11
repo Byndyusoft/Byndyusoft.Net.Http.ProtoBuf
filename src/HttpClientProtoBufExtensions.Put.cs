@@ -26,7 +26,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<HttpResponseMessage> PutAsProtoBufAsync<TValue>(this HttpClient client, string requestUri,
             TValue value, TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             var content = ProtoBufContent.Create(value, typeModel);
             return client.PutAsync(requestUri, content, cancellationToken);
@@ -49,7 +49,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<HttpResponseMessage> PutAsProtoBufAsync<TValue>(this HttpClient client, Uri requestUri,
             TValue value, TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             var content = ProtoBufContent.Create(value, typeModel);
             return client.PutAsync(requestUri, content, cancellationToken);
@@ -71,7 +71,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<HttpResponseMessage> PutAsProtoBufAsync<TValue>(this HttpClient client, string requestUri,
             TValue value, CancellationToken cancellationToken)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             return client.PutAsProtoBufAsync(requestUri, value, null, cancellationToken);
         }
@@ -92,7 +92,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<HttpResponseMessage> PutAsProtoBufAsync<TValue>(this HttpClient client, Uri requestUri,
             TValue value, CancellationToken cancellationToken)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             return client.PutAsProtoBufAsync(requestUri, value, null, cancellationToken);
         }

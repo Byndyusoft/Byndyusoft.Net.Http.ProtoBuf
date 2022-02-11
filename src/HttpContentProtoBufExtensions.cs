@@ -25,8 +25,8 @@ namespace System.Net.Http.ProtoBuf
         public static async Task<object?> ReadFromProtoBufAsync(this HttpContent content, Type type,
             TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (content == null) throw new ArgumentNullException(nameof(content));
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            Guard.NotNull(type, nameof(type));
+            Guard.NotNull(content, nameof(content));
 
             if (content is ObjectContent objectContent) return objectContent.Value;
 
@@ -51,7 +51,7 @@ namespace System.Net.Http.ProtoBuf
         public static async Task<T> ReadFromProtoBufAsync<T>(this HttpContent content,
             TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (content == null) throw new ArgumentNullException(nameof(content));
+            Guard.NotNull(content, nameof(content));
 
             var result = await ReadFromProtoBufAsync(content, typeof(T), typeModel, cancellationToken).ConfigureAwait(false);
             return (T)result!;

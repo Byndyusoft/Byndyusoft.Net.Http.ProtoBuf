@@ -17,7 +17,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
     public class ProtoBufMediaTypeFormatterTest
     {
         private readonly ProtoBufHttpContent _content;
-        private readonly TransportContext _context = null;
+        private readonly TransportContext? _context = null;
         private readonly ProtoBufMediaTypeFormatter _formatter;
         private readonly CancellationToken _cancellationToken;
 
@@ -135,7 +135,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task ReadFromStreamAsync_ReadsNullObject()
         {
             // Assert
-            _content.WriteObject<object>(null);
+            _content.WriteObject<object>(null!);
 
             // Act
             var result = await _formatter.ReadFromStreamAsync(typeof(object), _content.Stream, _content, _cancellationToken);
@@ -296,10 +296,12 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
                 : base(stream)
             {
                 Stream = stream;
+
             }
 
             public MemoryStream Stream { get; }
-            public TypeModel Model { get; }
+
+            public TypeModel Model { get; } = default!;
 
             public void WriteObject<T>(T value)
             {
@@ -310,7 +312,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             public T ReadObject<T>()
             {
                 if (Stream.Length == 0)
-                    return default;
+                    return default!;
 
                 Stream.Position = 0;
                 return Model.Deserialize<T>(Stream);

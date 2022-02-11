@@ -105,7 +105,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task ReadAsByteArrayAsync_NullObject_Test()
         {
-            var content = ProtoBufContent.Create<SimpleType>(null, _typeModel, _mediaType);
+            var content = ProtoBufContent.Create<SimpleType>(null!, _typeModel, _mediaType);
 
             var bytes = await content.ReadAsByteArrayAsync();
             await using var stream = new MemoryStream(bytes);
@@ -128,7 +128,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task ReadAsStreamArrayAsync_NullObject_Test()
         {
-            var content = ProtoBufContent.Create<SimpleType>(null, _typeModel, _mediaType);
+            var content = ProtoBufContent.Create<SimpleType>(null!, _typeModel, _mediaType);
 
             await using var stream = await content.ReadAsStreamAsync();
 
@@ -152,7 +152,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         [Fact]
         public async Task CopyToAsync_NullObject_Test()
         {
-            var content = ProtoBufContent.Create<SimpleType>(null, _typeModel, _mediaType);
+            var content = ProtoBufContent.Create<SimpleType>(null!, _typeModel, _mediaType);
             await using var stream = new MemoryStream();
 
             await content.CopyToAsync(stream);

@@ -25,7 +25,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<object?> GetFromProtoBufAsync(this HttpClient client, string requestUri, Type type,
             TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
             requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeaders.ApplicationProtoBuf);
@@ -52,7 +52,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<object?> GetFromProtoBufAsync(this HttpClient client, Uri requestUri, Type type,
             TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
             requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeader);
@@ -78,7 +78,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<TValue> GetFromProtoBufAsync<TValue>(this HttpClient client, string requestUri,
             TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
             requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeaders.ApplicationProtoBuf);
@@ -105,7 +105,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<TValue> GetFromProtoBufAsync<TValue>(this HttpClient client, Uri requestUri,
             TypeModel? typeModel = null, CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
             requestMessage.Headers.Accept.Add(ProtoBufDefaults.MediaTypeHeader);
@@ -130,7 +130,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<object?> GetFromProtoBufAsync(this HttpClient client, string requestUri, Type type,
             CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             return client.GetFromProtoBufAsync(requestUri, type, null, cancellationToken);
         }
@@ -150,7 +150,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<object?> GetFromProtoBufAsync(this HttpClient client, Uri requestUri, Type type,
             CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             return client.GetFromProtoBufAsync(requestUri, type, null, cancellationToken);
         }
@@ -170,7 +170,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<TValue> GetFromProtoBufAsync<TValue>(this HttpClient client, string requestUri,
             CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             return client.GetFromProtoBufAsync<TValue>(requestUri, null, cancellationToken);
         }
@@ -190,7 +190,7 @@ namespace System.Net.Http.ProtoBuf
         public static Task<TValue> GetFromProtoBufAsync<TValue>(this HttpClient client, Uri requestUri,
             CancellationToken cancellationToken = default)
         {
-            if (client == null) throw new ArgumentNullException(nameof(client));
+            Guard.NotNull(client,nameof(client));
 
             return client.GetFromProtoBufAsync<TValue>(requestUri, null, cancellationToken);
         }

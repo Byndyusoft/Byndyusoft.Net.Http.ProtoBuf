@@ -6,7 +6,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Models
     [ProtoContract]
     public class ComplexType
     {
-        [ProtoMember(1)] public SimpleType Inner { get; set; }
+        [ProtoMember(1)] public SimpleType Inner { get; set; } = default!;
 
         public static ComplexType Create()
         {

@@ -1,4 +1,4 @@
-﻿using ProtoBuf.Meta;
+using ProtoBuf.Meta;
 using System.Net.Http.Headers;
 
 namespace System.Net.Http.ProtoBuf

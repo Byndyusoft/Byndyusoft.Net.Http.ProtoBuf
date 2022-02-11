@@ -32,9 +32,9 @@ namespace System.Net.Http.ProtoBuf.Formatting
         public override object? ReadFromStream(Type type, Stream readStream, HttpContent content, IFormatterLogger? formatterLogger = null,
             CancellationToken cancellationToken = default)
         {
-            if (type is null) throw new ArgumentNullException(nameof(type));
-            if (readStream is null) throw new ArgumentNullException(nameof(readStream));
-            if (content == null) throw new ArgumentNullException(nameof(content));
+            Guard.NotNull(type, nameof(type));
+            Guard.NotNull(readStream, nameof(readStream));
+            Guard.NotNull(content, nameof(content));
 
             if (content is ObjectContent objectContent) return objectContent.Value;
 
@@ -49,9 +49,9 @@ namespace System.Net.Http.ProtoBuf.Formatting
         public override void WriteToStream(Type type, object? value, Stream writeStream, HttpContent content,
             CancellationToken cancellationToken = default)
         {
-            if (type is null) throw new ArgumentNullException(nameof(type));
-            if (writeStream is null) throw new ArgumentNullException(nameof(writeStream));
-            if (content == null) throw new ArgumentNullException(nameof(content));
+            Guard.NotNull(type, nameof(type));
+            Guard.NotNull(writeStream, nameof(writeStream));
+            Guard.NotNull(content, nameof(content));
 
             if (value != null)
             {

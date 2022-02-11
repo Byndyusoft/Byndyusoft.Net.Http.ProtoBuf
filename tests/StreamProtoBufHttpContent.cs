@@ -1,4 +1,4 @@
-﻿using ProtoBuf.Meta;
+using ProtoBuf.Meta;
 using System.IO;
 using System.Net.Http;
 
@@ -26,7 +26,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf
         public T ReadObject<T>(TypeModel typeModel)
         {
             if (Stream.Length == 0)
-                return default;
+                return default!;
 
             Stream.Position = 0;
             return typeModel.Deserialize<T>(Stream);

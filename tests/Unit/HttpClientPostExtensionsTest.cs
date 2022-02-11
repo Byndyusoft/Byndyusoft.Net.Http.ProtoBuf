@@ -25,7 +25,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task PostAsProtoBufAsync_String_WhenClientIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpClient)null)!.PostAsProtoBufAsync(_uri, SimpleType.Create(), CancellationToken.None));
+                ((HttpClient)null!).PostAsProtoBufAsync(_uri, SimpleType.Create(), CancellationToken.None));
             Assert.Equal("client", exception.ParamName);
         }
 
@@ -33,7 +33,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task PostAsProtoBufAsync_String_WhenUriIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
-                _client.PostAsProtoBufAsync(((string)null)!, SimpleType.Create(), CancellationToken.None));
+                _client.PostAsProtoBufAsync(((string)null!), SimpleType.Create(), CancellationToken.None));
             Assert.Equal(
                 "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
                 exception.Message);
@@ -62,7 +62,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         public async Task PostAsProtoBufAsync_Uri_WhenClientIsNull_ThrowsException()
         {
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                ((HttpClient)null)!.PostAsProtoBufAsync(new Uri(_uri), new object(), CancellationToken.None));
+                ((HttpClient)null!).PostAsProtoBufAsync(new Uri(_uri), new object(), CancellationToken.None));
             Assert.Equal("client", exception.ParamName);
         }
 
@@ -71,7 +71,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         {
             var exception =
                 await Assert.ThrowsAsync<InvalidOperationException>(() =>
-                    _client.PostAsProtoBufAsync(((Uri)null)!, SimpleType.Create(), CancellationToken.None));
+                    _client.PostAsProtoBufAsync(((Uri)null!), SimpleType.Create(), CancellationToken.None));
             Assert.Equal(
                 "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
                 exception.Message);

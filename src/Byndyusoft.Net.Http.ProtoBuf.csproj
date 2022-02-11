@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Nullable>enable</Nullable>
 		<RootNamespace>System.Net.Http.ProtoBuf</RootNamespace>
 		<PackageId>Byndyusoft.Net.Http.ProtoBuf</PackageId>
 		<Title>Byndyusoft.Net.Http.ProtoBuf</Title>
@@ -18,16 +17,15 @@
 		<TargetFrameworks>netstandard2.0</TargetFrameworks>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>0.4.0</Version>
+		<Version>0.4.1</Version>
 		<Authors>Byndyusoft</Authors>
 		<RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.Net.Http.ProtoBuf</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<LangVersion>8</LangVersion>
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\icon.png" Pack="true" PackagePath="icon.png" />
+		<None Include="$(SolutionDir)\icon.png" Pack="true" PackagePath="icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>

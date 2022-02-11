@@ -46,8 +46,7 @@ namespace System.Net.Http.ProtoBuf
         /// <param name="mediaType">The media type to use for the content.</param>
         /// <returns>A <see cref="ProtoBufContent" /> instance.</returns>
         public static ProtoBufContent Create(Type type,
-            object? value,
-            TypeModel? typeModel = null, MediaTypeHeaderValue? mediaType = null)
+            object? value, TypeModel? typeModel = null, MediaTypeHeaderValue? mediaType = null)
         {
             var formatter = new ProtoBufMediaTypeFormatter(typeModel);
 
