@@ -44,7 +44,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
         {
             var response = await _client.PostAsProtoBufAsync(_uri, SimpleType.Create(), CancellationToken.None);
 
-            var content = Assert.IsType<ProtoBufContent>(response.RequestMessage.Content);
+            var content = Assert.IsType<ProtoBufContent>(response.RequestMessage?.Content);
             Assert.Same(ProtoBufDefaults.TypeModel, content.TypeModel);
         }
 
@@ -54,7 +54,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var response =
                 await _client.PostAsProtoBufAsync(_uri, SimpleType.Create(), _typeModel, CancellationToken.None);
 
-            var content = Assert.IsType<ProtoBufContent>(response.RequestMessage.Content);
+            var content = Assert.IsType<ProtoBufContent>(response.RequestMessage?.Content);
             Assert.Same(_typeModel, content.TypeModel);
         }
 
@@ -84,7 +84,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
                 await _client.PostAsProtoBufAsync(new Uri(_uri), SimpleType.Create(), _typeModel,
                     CancellationToken.None);
 
-            var content = Assert.IsType<ProtoBufContent>(response.RequestMessage.Content);
+            var content = Assert.IsType<ProtoBufContent>(response.RequestMessage?.Content);
             Assert.Same(_typeModel, content.TypeModel);
         }
 
@@ -94,7 +94,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var response =
                 await _client.PostAsProtoBufAsync(new Uri(_uri), SimpleType.Create(), CancellationToken.None);
 
-            var content = Assert.IsType<ProtoBufContent>(response.RequestMessage.Content);
+            var content = Assert.IsType<ProtoBufContent>(response.RequestMessage?.Content);
             Assert.Same(ProtoBufDefaults.TypeModel, content.TypeModel);
         }
     }
