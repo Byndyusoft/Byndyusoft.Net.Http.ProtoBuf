@@ -36,7 +36,8 @@ namespace System.Net.Http.ProtoBuf.Formatting
             Guard.NotNull(readStream, nameof(readStream));
             Guard.NotNull(content, nameof(content));
 
-            if (content is ObjectContent objectContent) return objectContent.Value;
+            if (content is ObjectContent objectContent) 
+                return objectContent.Value;
 
             var length = content.Headers.ContentLength ?? -1;
             if (length == 0)
