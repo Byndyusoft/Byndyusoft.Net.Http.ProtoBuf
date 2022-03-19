@@ -48,8 +48,10 @@ namespace System.Net.Http.ProtoBuf
         public static ProtoBufContent Create(Type type,
             object? value, TypeModel? typeModel = null, MediaTypeHeaderValue? mediaType = null)
         {
-            var formatter = new ProtoBufMediaTypeFormatter(typeModel);
+            if (value is null)
+                type = typeof(string);
 
+            var formatter = new ProtoBufMediaTypeFormatter(typeModel);
             return new ProtoBufContent(type, value, formatter, mediaType);
         }
 

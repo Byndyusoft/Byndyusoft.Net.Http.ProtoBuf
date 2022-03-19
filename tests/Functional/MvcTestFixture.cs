@@ -52,6 +52,8 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Functional
 
             _client?.Dispose();
             _client = null;
+
+            GC.SuppressFinalize(this);
         }
 
         public void Configure(IApplicationBuilder app)

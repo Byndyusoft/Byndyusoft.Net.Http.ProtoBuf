@@ -14,10 +14,10 @@
 			System.Net.Http.ProtoBuf.Formatting.ProtoBufMediaTypeFormatter
 		</Description>
 		<PackageTags>Byndyusoft;Net;Http:ProtoBuf</PackageTags>
-		<TargetFrameworks>netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>0.4.1</Version>
+		<Version>0.4.2</Version>
 		<Authors>Byndyusoft</Authors>
 		<RepositoryUrl>https://github.com/Byndyusoft/Byndyusoft.Net.Http.ProtoBuf</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>

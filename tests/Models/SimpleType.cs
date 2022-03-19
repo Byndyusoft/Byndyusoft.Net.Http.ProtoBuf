@@ -1,12 +1,11 @@
-using ProtoBuf;
 using System.IO;
+using ProtoBuf;
 using Xunit;
 
 namespace Byndyusoft.Net.Http.ProtoBuf.Models
 {
     public class NonContractType
     {
-
     }
 
     [ProtoContract]
@@ -24,12 +23,12 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Models
 
         public static SimpleType Create()
         {
-            return new SimpleType
+            return new()
             {
                 Property = 10,
                 Enum = SeekOrigin.Current,
                 Field = "string",
-                Array = new[] { 1, 2 },
+                Array = new[] {1, 2},
                 Nullable = 100
             };
         }
