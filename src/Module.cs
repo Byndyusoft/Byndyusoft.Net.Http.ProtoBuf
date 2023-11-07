@@ -1,5 +1,7 @@
 #if NET5_0_OR_GREATER
 
+#pragma warning disable CA2255
+
 using System.Net.Http.Formatting;
 using System.Net.Http.ProtoBuf.Formatting;
 using System.Runtime.CompilerServices;
