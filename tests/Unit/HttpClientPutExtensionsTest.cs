@@ -35,7 +35,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
                 _client.PutAsProtoBufAsync(((string)null!), SimpleType.Create()));
             Assert.Equal(
-                "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
+                "An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.",
                 exception.Message);
         }
 
@@ -73,7 +73,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
                 await Assert.ThrowsAsync<InvalidOperationException>(() =>
                     _client.PutAsProtoBufAsync(((Uri)null!), SimpleType.Create(), CancellationToken.None));
             Assert.Equal(
-                "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
+                "An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.",
                 exception.Message);
         }
 

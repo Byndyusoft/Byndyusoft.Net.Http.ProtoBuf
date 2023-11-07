@@ -37,7 +37,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
                 _client.GetFromProtoBufAsync(((string)null!), typeof(object), CancellationToken.None));
             Assert.Equal(
-                "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
+                "An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.",
                 exception.Message);
         }
 
@@ -69,7 +69,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
                 _client.GetFromProtoBufAsync<object>(((string)null!), CancellationToken.None));
             Assert.Equal(
-                "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
+                "An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.",
                 exception.Message);
         }
 
@@ -99,7 +99,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
                 _client.GetFromProtoBufAsync(((Uri)null!), typeof(object), CancellationToken.None));
             Assert.Equal(
-                "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
+                "An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.",
                 exception.Message);
         }
 
@@ -132,7 +132,7 @@ namespace Byndyusoft.Net.Http.ProtoBuf.Unit
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
                 _client.GetFromProtoBufAsync<object>(((Uri)null!), CancellationToken.None));
             Assert.Equal(
-                "An invalid request URI was provided. The request URI must either be an absolute URI or BaseAddress must be set.",
+                "An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.",
                 exception.Message);
         }
 

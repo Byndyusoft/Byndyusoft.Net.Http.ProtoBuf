@@ -29,17 +29,16 @@ namespace System.Net.Http.ProtoBuf.Formatting
         public TypeModel TypeModel { get; }
 
         /// <inheritdoc />
-        public override object? ReadFromStream(Type type, Stream readStream, HttpContent content, IFormatterLogger? formatterLogger = null,
+        public override object? ReadFromStream(Type type, Stream readStream, HttpContent? content, IFormatterLogger? formatterLogger = null,
             CancellationToken cancellationToken = default)
         {
             Guard.NotNull(type, nameof(type));
             Guard.NotNull(readStream, nameof(readStream));
-            Guard.NotNull(content, nameof(content));
 
             if (content is ObjectContent objectContent) 
                 return objectContent.Value;
 
-            var length = content.Headers.ContentLength ?? -1;
+            var length = content?.Headers.ContentLength ?? -1;
             if (length == 0)
                 return null;
 
@@ -47,12 +46,11 @@ namespace System.Net.Http.ProtoBuf.Formatting
         }
 
         /// <inheritdoc />
-        public override void WriteToStream(Type type, object? value, Stream writeStream, HttpContent content,
+        public override void WriteToStream(Type type, object? value, Stream writeStream, HttpContent? content,
             CancellationToken cancellationToken = default)
         {
             Guard.NotNull(type, nameof(type));
             Guard.NotNull(writeStream, nameof(writeStream));
-            Guard.NotNull(content, nameof(content));
 
             if (value != null)
             {
